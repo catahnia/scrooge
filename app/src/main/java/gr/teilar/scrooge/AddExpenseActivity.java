@@ -59,7 +59,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
 
 
-       // FragmentTransaction
+        // FragmentTransaction
 
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment, expenseFragment);
