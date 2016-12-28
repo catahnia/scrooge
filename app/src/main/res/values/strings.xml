@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Scrooge</string>
+    <string name="title_activity_make_category">MakeCategoryActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="addCategory">Add New Category</string>
+    <string name="newExpense">Add New Expense</string>
+    <string name="seeExpenses">See My Expenses</string>
+    <string name="analyseExpenses">Analyse Expenses</string>
+    <string name="category_name">Category Name</string>
+    <string name="category_description">Category Description</string>
+    <string name="add_category">Add Category</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="google_maps_key">AIzaSyAE9jRrpO5qcLLHsSt5QILyDW3Py-r1uY0</string>
+    <string name="successAddCategory">Category Successfully Added</string>
+    <string name="wrongAddCategory">Something Went Wrong, Try Again</string>
+    <string name="locationName">Location Name</string>
+</resources>
