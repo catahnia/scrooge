@@ -25,11 +25,8 @@ public class LocationDb extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE locations ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "location_latitude TEXT, "
-                + "location_longitude TEXT, "
-                + "location_name TEXT);");
+
+
     }
 
     @Override

@@ -240,7 +240,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
         float amount = Float.parseFloat(expenseAmount);
 
-        ExpenseLocation expenseLocation1 = new ExpenseLocation(expenseLocation, Double.toString(mCurrentLocation.getLatitude()),Double.toString(mCurrentLocation.getLongitude()));
+        ExpenseLocation expenseLocation1 = new ExpenseLocation(expenseLocation, mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
         long resultLocation = 0;
         long resultExpense = 0;
         try {
@@ -259,13 +259,13 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
             Expense expense = new Expense(new Date(expenseDate), expenseDescription, amount, expenseLocation1, selectedCategory);
 
             try {
-                resultExpense = ExpenseDb.insertCategory(AddExpenseActivity.this, expense);
+                resultExpense = ExpenseDb.insertExpense(AddExpenseActivity.this, expense);
             }catch (SQLiteException e){
                 Log.v("Add Expense", e.toString());
             }
 
             if(resultExpense == -1) {
-                Log.v("Add Location", "Sfalma");
+                Log.v("Add expense", "Sfalma");
             }
             else {
                 Toast.makeText(this,"Expsense Succefully Added", Toast.LENGTH_LONG).show();

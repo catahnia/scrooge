@@ -25,15 +25,6 @@ public class ExpenseDb extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE expenses ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "expense_date INTEGER, "
-                + "expense_description TEXT, "
-                + "expense_amount REAL"
-                + "expense_location_id TEXT , "
-                + "expense_category_id TEXT,"
-                + "FOREIGN KEY(expense_location_id) REFERENCES locations(id), "
-                + "FOREIGN KEY(expense_category_id) REFERENCES categories(id)");
 
 
     }
@@ -41,9 +32,10 @@ public class ExpenseDb extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+
     }
 
-    public static long insertCategory (Context context, Expense expense) {
+    public static long insertExpense (Context context, Expense expense) {
 
         SQLiteOpenHelper helper = new LocationDb(context);
         SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
@@ -53,9 +45,9 @@ public class ExpenseDb extends SQLiteOpenHelper {
         values.put("expense_description", expense.getExpenseDescription());
         values.put("expense_amount", expense.getExpenseAmount());
         values.put("expense_location_id", expense.getExpenseExpenseLocation().getLocationId());
-        values.put("expenses_category_id", expense.getExpenseCategory().getCategoryId());
+        values.put("expense_category_id", expense.getExpenseCategory().getCategoryId());
 
-        return sqLiteDatabase.insert("locations", null, values);
+        return sqLiteDatabase.insert("expenses", null, values);
 
     }
 }

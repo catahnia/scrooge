@@ -7,10 +7,10 @@ package gr.teilar.scrooge.Core;
 public class ExpenseLocation {
     private long locationId;
     private String locationName;
-    private String locationLatitude;
-    private String locationLongitude;
+    private double locationLatitude;
+    private double locationLongitude;
 
-    public ExpenseLocation(String locationName, String locationLatitude, String locationLongitude) {
+    public ExpenseLocation(String locationName, double locationLatitude, double locationLongitude) {
         this.locationName = locationName;
         this.locationLatitude = locationLatitude;
         this.locationLongitude = locationLongitude;
@@ -24,11 +24,11 @@ public class ExpenseLocation {
         return locationId;
     }
 
-    public String getLocationLatitude() {
+    public double getLocationLatitude() {
         return locationLatitude;
     }
 
-    public String getLocationLongitude() {
+    public double getLocationLongitude() {
         return locationLongitude;
     }
 

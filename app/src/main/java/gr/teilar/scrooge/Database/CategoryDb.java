@@ -31,11 +31,27 @@ public class CategoryDb extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
         sqLiteDatabase.execSQL("CREATE TABLE categories ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "category_name TEXT, "
                 + "category_description TEXT, "
                 + "category_image_id INTEGER);");
+
+        sqLiteDatabase.execSQL("CREATE TABLE locations ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "location_latitude REAL, "
+                + "location_longitude REAL, "
+                + "location_name TEXT);");
+
+
+        sqLiteDatabase.execSQL("CREATE TABLE expenses ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "expense_date INTEGER, "
+                + "expense_description TEXT, "
+                + "expense_amount REAL, "
+                + "expense_location_id INTEGER , "
+                + "expense_category_id INTEGER);");
 
 
     }
@@ -74,7 +90,7 @@ public class CategoryDb extends SQLiteOpenHelper {
             sqLiteDatabase.close();
         }
         catch (SQLiteException e) {
-
+            Log.v("Error Read Categories", e.toString());
         }
 
 
