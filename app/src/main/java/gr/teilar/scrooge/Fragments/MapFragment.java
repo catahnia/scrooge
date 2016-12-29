@@ -76,7 +76,7 @@ public class MapFragment extends Fragment  {
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 

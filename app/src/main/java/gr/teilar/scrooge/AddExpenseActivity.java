@@ -1,6 +1,7 @@
 package gr.teilar.scrooge;
 
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteException;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -11,6 +12,8 @@ import android.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,13 +23,20 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import gr.teilar.scrooge.Core.Category;
+import gr.teilar.scrooge.Core.Expense;
+import gr.teilar.scrooge.Core.ExpenseLocation;
+import gr.teilar.scrooge.Database.ExpenseDb;
+import gr.teilar.scrooge.Database.LocationDb;
 import gr.teilar.scrooge.Fragments.AddExpenseFragment;
 import gr.teilar.scrooge.Fragments.MapFragment;
 
-public class AddExpenseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks, LocationListener  {
+public class AddExpenseActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener,
+        GoogleApiClient.ConnectionCallbacks, LocationListener, AddExpenseFragment.OnAddExpenseListener  {
 
     private GoogleApiClient googleApiClient;
 
@@ -224,4 +234,46 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
     }
 
 
+    @Override
+    public void onAddExpense(Category selectedCategory, String expenseDate,
+                             String expenseAmount, String expenseDescription, String expenseLocation) {
+
+        float amount = Float.parseFloat(expenseAmount);
+
+        ExpenseLocation expenseLocation1 = new ExpenseLocation(expenseLocation, Double.toString(mCurrentLocation.getLatitude()),Double.toString(mCurrentLocation.getLongitude()));
+        long resultLocation = 0;
+        long resultExpense = 0;
+        try {
+            resultLocation = LocationDb.insertLocation(AddExpenseActivity.this, expenseLocation1);
+        } catch (SQLiteException e) {
+            Log.v("Add Location", e.toString());
+
+        }
+
+        if (resultLocation == -1 ) {
+            Log.v("Add Location", "Sfalma");
+
+        } else {
+            expenseLocation1.setLocationId(resultLocation);
+
+            Expense expense = new Expense(new Date(expenseDate), expenseDescription, amount, expenseLocation1, selectedCategory);
+
+            try {
+                resultExpense = ExpenseDb.insertCategory(AddExpenseActivity.this, expense);
+            }catch (SQLiteException e){
+                Log.v("Add Expense", e.toString());
+            }
+
+            if(resultExpense == -1) {
+                Log.v("Add Location", "Sfalma");
+            }
+            else {
+                Toast.makeText(this,"Expsense Succefully Added", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+
+
+    }
 }

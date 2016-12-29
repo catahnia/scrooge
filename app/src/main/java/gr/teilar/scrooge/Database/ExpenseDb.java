@@ -43,7 +43,7 @@ public class ExpenseDb extends SQLiteOpenHelper {
 
     }
 
-    public void insertCategory (Context context, Expense expense) {
+    public static long insertCategory (Context context, Expense expense) {
 
         SQLiteOpenHelper helper = new LocationDb(context);
         SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
@@ -52,9 +52,10 @@ public class ExpenseDb extends SQLiteOpenHelper {
         values.put("expense_date", expense.getExpenseDate());
         values.put("expense_description", expense.getExpenseDescription());
         values.put("expense_amount", expense.getExpenseAmount());
-        values.put("expense_location_id", expense.getExpenseLocation().getLocationId());
+        values.put("expense_location_id", expense.getExpenseExpenseLocation().getLocationId());
         values.put("expenses_category_id", expense.getExpenseCategory().getCategoryId());
-        sqLiteDatabase.insert("locations", null, values);
+
+        return sqLiteDatabase.insert("locations", null, values);
 
     }
 }

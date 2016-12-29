@@ -12,8 +12,16 @@ public class Expense {
     private String expenseDescription;
     private float expenseAmount;
 
-    private Location expenseLocation;
+    private ExpenseLocation expenseExpenseLocation;
     private Category expenseCategory;
+
+    public Expense(Date expenseDate, String expenseDescription, float expenseAmount, ExpenseLocation expenseExpenseLocation, Category expenseCategory) {
+        this.expenseDate = expenseDate;
+        this.expenseDescription = expenseDescription;
+        this.expenseAmount = expenseAmount;
+        this.expenseExpenseLocation = expenseExpenseLocation;
+        this.expenseCategory = expenseCategory;
+    }
 
     public Long getExpenseDate() {
         return  expenseDate.getTime();
@@ -27,8 +35,8 @@ public class Expense {
         return expenseAmount;
     }
 
-    public Location getExpenseLocation() {
-        return expenseLocation;
+    public ExpenseLocation getExpenseExpenseLocation() {
+        return expenseExpenseLocation;
     }
 
     public Category getExpenseCategory() {
