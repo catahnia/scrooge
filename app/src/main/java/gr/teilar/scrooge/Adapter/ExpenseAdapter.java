@@ -43,7 +43,7 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
         TextView expenseDateTextView = (TextView) listItemView.findViewById(R.id.expenseDate);
 
         Date expenseDate = new Date(currentExpense.getExpenseDate());
-        expenseDateTextView.setText(new SimpleDateFormat("dd/MM/yy").format(expenseDate));
+        expenseDateTextView.setText(new SimpleDateFormat("dd/MM/yyyy").format(expenseDate));
 
         TextView expenseDescriptionTextView = (TextView) listItemView.findViewById(R.id.expenseDescription);
 

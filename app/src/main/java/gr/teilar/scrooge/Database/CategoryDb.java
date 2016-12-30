@@ -69,8 +69,11 @@ public class CategoryDb extends SQLiteOpenHelper {
         values.put("category_name", category.getCategoryName());
         values.put("category_description", category.getCategoryDescription());
         values.put("category_image_id", -1);
+        long result = sqLiteDatabase.insert("categories", null, values);
 
-        return sqLiteDatabase.insert("categories", null, values);
+        sqLiteDatabase.close();
+
+        return result;
 
     }
 
@@ -95,6 +98,32 @@ public class CategoryDb extends SQLiteOpenHelper {
 
 
         return categories;
+    }
+
+    public static Category getCategory (Context context, long id) {
+        Category category = new Category();
+        try {
+            SQLiteOpenHelper helper = new CategoryDb(context);
+            SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+
+            Cursor cursor = sqLiteDatabase.query("categories", new String[] {"category_name", "category_description"},
+                    "id=?", new String[] {Long.toString(id)},null,null,null);
+
+            while (cursor.moveToNext()) {
+                category.setCategoryId(id);
+                category.setCategoryName(cursor.getString(0));
+                category.setCategoryDescription(cursor.getString(1));
+            }
+            cursor.close();
+            sqLiteDatabase.close();
+
+        }
+        catch (SQLiteException e) {
+            Log.v("Error Read Categories", e.toString());
+
+        }
+
+        return category;
     }
 
 

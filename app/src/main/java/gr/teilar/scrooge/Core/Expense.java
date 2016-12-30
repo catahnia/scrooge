@@ -54,4 +54,24 @@ public class Expense {
     public Category getExpenseCategory() {
         return expenseCategory;
     }
+
+    public void setExpenseCategory(Category expenseCategory) {
+        this.expenseCategory = expenseCategory;
+    }
+
+    public void setExpenseExpenseLocation(ExpenseLocation expenseExpenseLocation) {
+        this.expenseExpenseLocation = expenseExpenseLocation;
+    }
+
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "expenseId=" + expenseId +
+                ", expenseDate=" + expenseDate +
+                ", expenseDescription='" + expenseDescription + '\'' +
+                ", expenseAmount=" + expenseAmount +
+                ", expenseExpenseLocation=" + expenseExpenseLocation.getLocationId() +
+                ", expenseCategory=" + expenseCategory.getCategoryId() +
+                '}';
+    }
 }

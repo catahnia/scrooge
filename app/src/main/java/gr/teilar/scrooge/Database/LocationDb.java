@@ -2,9 +2,13 @@ package gr.teilar.scrooge.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import gr.teilar.scrooge.Core.Category;
 import gr.teilar.scrooge.Core.ExpenseLocation;
 
 /**
@@ -46,4 +50,32 @@ public class LocationDb extends SQLiteOpenHelper{
         return sqLiteDatabase.insert("locations", null, values);
 
     }
+
+    public static ExpenseLocation getLocation (Context context, long id) {
+        ExpenseLocation expenseLocation = new ExpenseLocation();
+        try {
+            SQLiteOpenHelper helper = new CategoryDb(context);
+            SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+
+            Cursor cursor = sqLiteDatabase.query("locations", new String[] {"location_latitude", "location_longitude",
+                    "location_name"},"id=?", new String[] {Long.toString(id)},null,null,null);
+
+            while (cursor.moveToNext()) {
+                expenseLocation.setLocationId(id);
+                expenseLocation.setLocationLatitude(cursor.getDouble(0));
+                expenseLocation.setLocationLongitude(cursor.getDouble(1));
+                expenseLocation.setLocationName(cursor.getString(2));
+            }
+            cursor.close();
+            sqLiteDatabase.close();
+
+        }
+        catch (SQLiteException e) {
+            Log.v("Error Read Categories", e.toString());
+
+        }
+
+        return expenseLocation;
+    }
+
 }

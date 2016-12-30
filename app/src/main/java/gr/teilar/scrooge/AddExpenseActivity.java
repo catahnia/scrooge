@@ -243,7 +243,6 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
                              String expenseAmount, String expenseDescription, String expenseLocation) {
 
         float amount = Float.parseFloat(expenseAmount);
-
         ExpenseLocation expenseLocation1 = new ExpenseLocation(expenseLocation, mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
         long resultLocation = 0;
         long resultExpense = 0;
@@ -260,11 +259,12 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         } else {
             expenseLocation1.setLocationId(resultLocation);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
             Date date = null;
             try {
                 date = sdf.parse(expenseDate);
+                Log.v("date", date.toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }

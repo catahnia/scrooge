@@ -163,14 +163,14 @@ public class AddExpenseFragment extends Fragment {
     private void updateLabel() {
 
 
-        String myFormat = "dd/MM/yy"; //In which you need put here
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
 
         editDate.setText(sdf.format(myCalendar.getTime()));
     }
 
     public interface OnAddExpenseListener {
-        public void onAddExpense(Category selectedCategory, String expenseDate,
+        void onAddExpense(Category selectedCategory, String expenseDate,
                                  String expenseAmount, String expenseDescription, String expenseLocation);
     }
 
