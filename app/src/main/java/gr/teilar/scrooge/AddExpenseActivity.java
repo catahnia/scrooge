@@ -23,6 +23,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -73,6 +75,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment, expenseFragment);
+        ft.addToBackStack(null);
         //ft.replace(R.id.map, mapFragment);
         ft.commit();
 
@@ -156,7 +159,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         if (mLocationPermissionGranted) {
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 
-
+            /*
             try {
                 address = geocoder.getFromLocation(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude(), 1);
                 if (address.size()>0) {
@@ -169,7 +172,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,
                     mLocationRequest, this);
 
@@ -230,6 +233,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.map, mapFragment);
+        ft.addToBackStack(null);
         ft.commit();
     }
 
@@ -256,7 +260,17 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         } else {
             expenseLocation1.setLocationId(resultLocation);
 
-            Expense expense = new Expense(new Date(expenseDate), expenseDescription, amount, expenseLocation1, selectedCategory);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+
+            Date date = null;
+            try {
+                date = sdf.parse(expenseDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+            Expense expense = new Expense(date, expenseDescription, amount, expenseLocation1, selectedCategory);
 
             try {
                 resultExpense = ExpenseDb.insertExpense(AddExpenseActivity.this, expense);

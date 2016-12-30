@@ -9,6 +9,9 @@ public class Category {
     private String categoryName;
     private String categoryDescription;
 
+    public Category() {
+    }
+
     public Category(String categoryName, String categoryDescription) {
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
@@ -31,6 +34,18 @@ public class Category {
 
     public String getCategoryDescription() {
         return categoryDescription;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 
     @Override

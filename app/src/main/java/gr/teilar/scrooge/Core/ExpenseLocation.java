@@ -10,6 +10,9 @@ public class ExpenseLocation {
     private double locationLatitude;
     private double locationLongitude;
 
+    public ExpenseLocation() {
+    }
+
     public ExpenseLocation(String locationName, double locationLatitude, double locationLongitude) {
         this.locationName = locationName;
         this.locationLatitude = locationLatitude;
@@ -34,5 +37,17 @@ public class ExpenseLocation {
 
     public void setLocationId(long id) {
         this.locationId = id;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public void setLocationLatitude(double locationLatitude) {
+        this.locationLatitude = locationLatitude;
+    }
+
+    public void setLocationLongitude(double locationLongitude) {
+        this.locationLongitude = locationLongitude;
     }
 }

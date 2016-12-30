@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         seeExpensesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent seeExpensesIntent = new Intent(MainActivity.this, SeeExpensesActivity.class);
+                startActivity(seeExpensesIntent);
 
             }
         });

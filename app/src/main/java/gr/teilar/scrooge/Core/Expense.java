@@ -23,6 +23,18 @@ public class Expense {
         this.expenseCategory = expenseCategory;
     }
 
+    public Expense(long expenseId, Date expenseDate, String expenseDescription, float expenseAmount, int locationId, int categoryId) {
+        this.expenseExpenseLocation = new ExpenseLocation();
+        this.expenseCategory = new Category();
+
+        this.expenseId = expenseId;
+        this.expenseDate = expenseDate;
+        this.expenseDescription = expenseDescription;
+        this.expenseAmount = expenseAmount;
+        this.expenseExpenseLocation.setLocationId(locationId);
+        this.expenseCategory.setCategoryId(categoryId);
+    }
+
     public Long getExpenseDate() {
         return  expenseDate.getTime();
     }

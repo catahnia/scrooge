@@ -66,7 +66,7 @@ public class AddExpenseFragment extends Fragment {
 
 
         editDate = (TextView) rootView.findViewById(R.id.dateFrag);
-        editDate.setText(new SimpleDateFormat("dd/MM/YYYY").format(today));
+        editDate.setText(new SimpleDateFormat("dd/MM/yy").format(today));
 
         Button addCategoryButton = (Button) rootView.findViewById(R.id.addCategoryButton);
 
