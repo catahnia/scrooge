@@ -1,5 +1,7 @@
 package gr.teilar.scrooge.Core;
 
+import java.io.Serializable;
+
 /**
  * Created by Mitsos on 18/12/16.
  */

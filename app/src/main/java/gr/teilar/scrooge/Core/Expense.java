@@ -1,5 +1,6 @@
 package gr.teilar.scrooge.Core;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -33,6 +34,10 @@ public class Expense {
         this.expenseAmount = expenseAmount;
         this.expenseExpenseLocation.setLocationId(locationId);
         this.expenseCategory.setCategoryId(categoryId);
+    }
+
+    public long getExpenseId() {
+        return expenseId;
     }
 
     public Long getExpenseDate() {

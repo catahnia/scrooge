@@ -71,7 +71,7 @@ public class ExpenseDb extends SQLiteOpenHelper {
 
             while (cursor.moveToNext()){
 
-                expenses.add(new Expense(cursor.getInt(0),new Date(cursor.getLong(1)), cursor.getString(2), cursor.getFloat(3),
+                expenses.add(new Expense(cursor.getLong(0),new Date(cursor.getLong(1)), cursor.getString(2), cursor.getFloat(3),
                         cursor.getInt(5), cursor.getInt(4)));
 
             }
@@ -89,5 +89,32 @@ public class ExpenseDb extends SQLiteOpenHelper {
         }
 
         return expenses;
+    }
+
+    public static int editExpense(Context context, long expenseId, String description, float amount, Long categoryId){
+
+        int result=-1;
+
+        try {
+            SQLiteOpenHelper helper = new ExpenseDb(context);
+            SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
+
+
+            ContentValues values = new ContentValues();
+            values.put("expense_description", description);
+            values.put("expense_amount", amount);
+            values.put("expense_category_id", categoryId);
+
+            result = sqLiteDatabase.update("expenses",values,"id=?",new String[] {Long.toString(expenseId)});
+
+            sqLiteDatabase.close();
+
+        }
+        catch (SQLiteException e) {
+            Log.v("UpdateExpense", e.toString());
+        }
+        return result;
+
+
     }
 }

@@ -17,4 +17,7 @@
     <string name="successAddCategory">Category Successfully Added</string>
     <string name="wrongAddCategory">Something Went Wrong, Try Again</string>
     <string name="locationName">Location Name</string>
+    <string name="change">Change</string>
+    <string name="expense_description">Expense Description</string>
+    <string name="expense_amount">Expense Amount</string>
 </resources>
