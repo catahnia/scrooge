@@ -11,6 +11,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.jar.Pack200;
 
 import gr.teilar.scrooge.Core.Category;
 import gr.teilar.scrooge.Core.Expense;
@@ -114,7 +115,37 @@ public class ExpenseDb extends SQLiteOpenHelper {
             Log.v("UpdateExpense", e.toString());
         }
         return result;
+    }
 
+    public static List<Expense> getAnalysedExpenses (Context context, long from, long to){
+
+        List<Expense> expenses = new ArrayList<>();
+
+        try {
+            SQLiteOpenHelper helper = new ExpenseDb(context);
+            SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+
+            Cursor cursor = sqLiteDatabase.query("expenses",new String[] {"expense_category_id", "SUM(expense_amount) AS Total"},
+                    "expense_date BETWEEN ? AND ?",new String[] {Long.toString(from), Long.toString(to)}, "expense_category_id",null, "Total DESC");
+
+            while (cursor.moveToNext()){
+                Expense e = new Expense();
+                e.setCategoryId(cursor.getLong(0));
+                e.setExpenseAmount(cursor.getFloat(1));
+                expenses.add(e);
+            }
+
+            cursor.close();
+            sqLiteDatabase.close();
+
+        }catch (SQLiteException e) {
+            Log.v("AnalyseExpense", e.toString());
+        }
+        for (Expense expense : expenses) {
+            expense.setExpenseCategory(CategoryDb.getCategory(context, expense.getExpenseCategory().getCategoryId()));
+        }
+
+        return expenses;
 
     }
 }

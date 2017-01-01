@@ -26,8 +26,6 @@ public class SeeExpensesActivity extends AppCompatActivity {
 
         ExpenseAdapter adapter = new ExpenseAdapter(this, expenses);
 
-        Log.v("test id", Long.toString(expenses.get(0).getExpenseId()));
-
         ListView listView = (ListView) findViewById(R.id.expensesList);
 
         listView.setAdapter(adapter);

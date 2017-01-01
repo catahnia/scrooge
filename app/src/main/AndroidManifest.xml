@@ -40,7 +40,9 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".EditExpenseActivity"
-            android:parentActivityName=".SeeExpensesActivity"/>
+            android:parentActivityName=".SeeExpensesActivity" />
+        <activity android:name=".AnalyseExpensesActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

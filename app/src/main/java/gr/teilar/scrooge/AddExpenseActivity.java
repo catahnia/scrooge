@@ -264,7 +264,6 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
             Date date = null;
             try {
                 date = sdf.parse(expenseDate);
-                Log.v("date", date.toString());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -279,10 +278,10 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
             }
 
             if(resultExpense == -1) {
-                Log.v("Add expense", "Sfalma");
+                Toast.makeText(this,"Something Went Wrong, We re Sorry", Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(this,"Expsense Succefully Added", Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Expense Successfully Added", Toast.LENGTH_LONG).show();
             }
         }
 

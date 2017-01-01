@@ -16,6 +16,10 @@ public class Expense {
     private ExpenseLocation expenseExpenseLocation;
     private Category expenseCategory;
 
+    public Expense () {
+
+    }
+
     public Expense(Date expenseDate, String expenseDescription, float expenseAmount, ExpenseLocation expenseExpenseLocation, Category expenseCategory) {
         this.expenseDate = expenseDate;
         this.expenseDescription = expenseDescription;
@@ -40,7 +44,7 @@ public class Expense {
         return expenseId;
     }
 
-    public Long getExpenseDate() {
+    public long getExpenseDate() {
         return  expenseDate.getTime();
     }
 
@@ -78,5 +82,14 @@ public class Expense {
                 ", expenseExpenseLocation=" + expenseExpenseLocation.getLocationId() +
                 ", expenseCategory=" + expenseCategory.getCategoryId() +
                 '}';
+    }
+
+    public void setCategoryId(long id) {
+        this.expenseCategory = new Category();
+        this.expenseCategory.setCategoryId(id);
+    }
+
+    public void setExpenseAmount(float amount) {
+        this.expenseAmount = amount;
     }
 }
