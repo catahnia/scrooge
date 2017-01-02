@@ -1,5 +1,7 @@
 package gr.teilar.scrooge.Core;
 
+import java.io.Serializable;
+
 /**
  * Created by Mitsos on 18/12/16.
  */
@@ -8,6 +10,9 @@ public class Category {
     private long categoryId;
     private String categoryName;
     private String categoryDescription;
+
+    public Category() {
+    }
 
     public Category(String categoryName, String categoryDescription) {
         this.categoryName = categoryName;
@@ -31,6 +36,18 @@ public class Category {
 
     public String getCategoryDescription() {
         return categoryDescription;
+    }
+
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 
     @Override

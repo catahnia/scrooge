@@ -31,11 +31,27 @@ public class CategoryDb extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
         sqLiteDatabase.execSQL("CREATE TABLE categories ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "category_name TEXT, "
                 + "category_description TEXT, "
                 + "category_image_id INTEGER);");
+
+        sqLiteDatabase.execSQL("CREATE TABLE locations ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "location_latitude REAL, "
+                + "location_longitude REAL, "
+                + "location_name TEXT);");
+
+
+        sqLiteDatabase.execSQL("CREATE TABLE expenses ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "expense_date INTEGER, "
+                + "expense_description TEXT, "
+                + "expense_amount REAL, "
+                + "expense_location_id INTEGER , "
+                + "expense_category_id INTEGER);");
 
 
     }
@@ -53,8 +69,11 @@ public class CategoryDb extends SQLiteOpenHelper {
         values.put("category_name", category.getCategoryName());
         values.put("category_description", category.getCategoryDescription());
         values.put("category_image_id", -1);
+        long result = sqLiteDatabase.insert("categories", null, values);
 
-        return sqLiteDatabase.insert("categories", null, values);
+        sqLiteDatabase.close();
+
+        return result;
 
     }
 
@@ -74,11 +93,37 @@ public class CategoryDb extends SQLiteOpenHelper {
             sqLiteDatabase.close();
         }
         catch (SQLiteException e) {
-
+            Log.v("Error Read Categories", e.toString());
         }
 
 
         return categories;
+    }
+
+    public static Category getCategory (Context context, long id) {
+        Category category = new Category();
+        try {
+            SQLiteOpenHelper helper = new CategoryDb(context);
+            SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+
+            Cursor cursor = sqLiteDatabase.query("categories", new String[] {"category_name", "category_description"},
+                    "id=?", new String[] {Long.toString(id)},null,null,null);
+
+            while (cursor.moveToNext()) {
+                category.setCategoryId(id);
+                category.setCategoryName(cursor.getString(0));
+                category.setCategoryDescription(cursor.getString(1));
+            }
+            cursor.close();
+            sqLiteDatabase.close();
+
+        }
+        catch (SQLiteException e) {
+            Log.v("Error Read Categories", e.toString());
+
+        }
+
+        return category;
     }
 
 

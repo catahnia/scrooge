@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         seeExpensesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent seeExpensesIntent = new Intent(MainActivity.this, SeeExpensesActivity.class);
+                startActivity(seeExpensesIntent);
 
             }
         });
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         analyseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent analyseIntent = new Intent(MainActivity.this, AnalyseExpensesActivity.class);
+                startActivity(analyseIntent);
 
             }
         });

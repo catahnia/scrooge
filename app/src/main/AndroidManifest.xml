@@ -15,7 +15,7 @@
         <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
         <uses-permission android:name="android.permission.INTERNET" />
 
-        <uses-feature android:name="android.hardware.location.gps" />
+        <uses-feature android:name="android.hardware.expenseLocation.gps" />
 
         <meta-data android:name="com.google.android.gms.version" />
         <meta-data
@@ -32,7 +32,17 @@
         <activity
             android:name=".AddCategoryActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".AddExpenseActivity"></activity>
+        <activity
+            android:name=".AddExpenseActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SeeExpensesActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditExpenseActivity"
+            android:parentActivityName=".SeeExpensesActivity" />
+        <activity android:name=".AnalyseExpensesActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

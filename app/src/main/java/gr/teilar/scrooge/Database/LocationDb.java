@@ -2,10 +2,14 @@ package gr.teilar.scrooge.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
-import gr.teilar.scrooge.Core.Location;
+import gr.teilar.scrooge.Core.Category;
+import gr.teilar.scrooge.Core.ExpenseLocation;
 
 /**
  * Created by Mitsos on 22/12/16.
@@ -25,11 +29,8 @@ public class LocationDb extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE locations ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "location_latitude TEXT, "
-                + "location_longitude TEXT, "
-                + "location_name TEXT);");
+
+
     }
 
     @Override
@@ -37,15 +38,44 @@ public class LocationDb extends SQLiteOpenHelper{
 
     }
 
-    public static void insertLocation (Context context, Location location) {
+    public static long insertLocation (Context context, ExpenseLocation expenseLocation) {
         SQLiteOpenHelper helper = new LocationDb(context);
         SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("location_latitude", location.getLocationLatitude());
-        values.put("location_longitude", location.getLocationLongitude());
-        values.put("location_name", location.getLocationName());
-        sqLiteDatabase.insert("locations", null, values);
+        values.put("location_latitude", expenseLocation.getLocationLatitude());
+        values.put("location_longitude", expenseLocation.getLocationLongitude());
+        values.put("location_name", expenseLocation.getLocationName());
+
+        return sqLiteDatabase.insert("locations", null, values);
 
     }
+
+    public static ExpenseLocation getLocation (Context context, long id) {
+        ExpenseLocation expenseLocation = new ExpenseLocation();
+        try {
+            SQLiteOpenHelper helper = new CategoryDb(context);
+            SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+
+            Cursor cursor = sqLiteDatabase.query("locations", new String[] {"location_latitude", "location_longitude",
+                    "location_name"},"id=?", new String[] {Long.toString(id)},null,null,null);
+
+            while (cursor.moveToNext()) {
+                expenseLocation.setLocationId(id);
+                expenseLocation.setLocationLatitude(cursor.getDouble(0));
+                expenseLocation.setLocationLongitude(cursor.getDouble(1));
+                expenseLocation.setLocationName(cursor.getString(2));
+            }
+            cursor.close();
+            sqLiteDatabase.close();
+
+        }
+        catch (SQLiteException e) {
+            Log.v("Error Read Categories", e.toString());
+
+        }
+
+        return expenseLocation;
+    }
+
 }

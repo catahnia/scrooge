@@ -7,12 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -38,8 +41,11 @@ public class AddExpenseFragment extends Fragment {
 
     private TextView editDate;
 
-
     private List<Category> categories = new ArrayList<>();
+
+    private Category selectedCategory;
+
+    OnAddExpenseListener listener;
 
 
 
@@ -60,16 +66,37 @@ public class AddExpenseFragment extends Fragment {
 
 
         editDate = (TextView) rootView.findViewById(R.id.dateFrag);
-        editDate.setText(new SimpleDateFormat("dd/MM/YYYY").format(today));
+        editDate.setText(new SimpleDateFormat("dd/MM/yy").format(today));
 
         Button addCategoryButton = (Button) rootView.findViewById(R.id.addCategoryButton);
 
+        Button addExpenseButton = (Button) rootView.findViewById(R.id.addExpenseButton);
+
+        final EditText amount = (EditText) rootView.findViewById(R.id.amountfrag);
+
+        final EditText description = (EditText) rootView.findViewById(R.id.descriptionFrag);
+
+        final EditText locationName = (EditText) rootView.findViewById(R.id.locationNameEditText);
 
 
-        Spinner category = (Spinner) rootView.findViewById(R.id.categoryFrag);
+
+
+        final Spinner category = (Spinner) rootView.findViewById(R.id.categoryFrag);
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, categories);
         category.setAdapter(adapter);
 
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedCategory = categories.get(i);
+                Log.v("selected",Long.toString(selectedCategory.getCategoryId()));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -103,6 +130,14 @@ public class AddExpenseFragment extends Fragment {
             }
         });
 
+        addExpenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onAddExpense(selectedCategory,editDate.getText().toString(),
+                        amount.getText().toString(), description.getText().toString(), locationName.getText().toString());
+            }
+        });
+
 
 
         return rootView;
@@ -114,16 +149,29 @@ public class AddExpenseFragment extends Fragment {
 
         categories = CategoryDb.getCategories(context);
 
+        try {
+            listener = (OnAddExpenseListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+
+
 
     }
 
     private void updateLabel() {
 
 
-        String myFormat = "dd/MM/yy"; //In which you need put here
+        String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.ENGLISH);
 
         editDate.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    public interface OnAddExpenseListener {
+        void onAddExpense(Category selectedCategory, String expenseDate,
+                                 String expenseAmount, String expenseDescription, String expenseLocation);
     }
 
 }

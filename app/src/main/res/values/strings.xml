@@ -17,4 +17,15 @@
     <string name="successAddCategory">Category Successfully Added</string>
     <string name="wrongAddCategory">Something Went Wrong, Try Again</string>
     <string name="locationName">Location Name</string>
+    <string name="change">Change</string>
+    <string name="expense_description">Expense Description</string>
+    <string name="expense_amount">Expense Amount</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="enter_description">Enter Description</string>
+    <string name="expense_date">Expense Date</string>
+    <string name="enter_location_name">Enter Location Name</string>
+    <string name="add_expense">Add Expense</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="total_amount">Total Amount</string>
 </resources>

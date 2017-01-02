@@ -8,12 +8,12 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:rowCount="5"
+        android:rowCount="6"
         android:columnCount="3">
 
 
         <TextView
-            android:text="Amount"
+            android:text="@string/expense_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
@@ -21,14 +21,15 @@
             android:layout_column="0"/>
         <EditText
             android:layout_width="wrap_content"
-            android:hint="Enter Amount"
+            android:hint="@string/enter_amount"
             android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
             android:layout_column="1"
             android:layout_row="0"
             android:id="@+id/amountfrag"/>
 
         <TextView
-            android:text="Description"
+            android:text="@string/expense_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView5"
@@ -37,13 +38,13 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter Description"
+            android:hint="@string/enter_description"
             android:layout_column="1"
             android:layout_row="1"
             android:id="@+id/descriptionFrag"/>
 
         <TextView
-            android:text="Category"
+            android:text="@string/category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView6"
@@ -65,7 +66,7 @@
             android:id="@+id/addCategoryButton" />
 
         <TextView
-            android:text="Date"
+            android:text="@string/expense_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView7"
@@ -89,9 +90,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
+            android:hint="@string/enter_location_name"
             android:layout_row="4"
             android:id="@+id/locationNameEditText"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:text="@string/add_expense"
+            android:layout_row="5"
+            android:id="@+id/addExpenseButton"/>
 
     </GridLayout>
 
