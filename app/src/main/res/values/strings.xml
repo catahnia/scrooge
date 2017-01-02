@@ -10,22 +10,28 @@
     <string name="category_description">Category Description</string>
     <string name="add_category">Add Category</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="google_maps_key">AIzaSyAE9jRrpO5qcLLHsSt5QILyDW3Py-r1uY0</string>
+
+
     <string name="successAddCategory">Category Successfully Added</string>
     <string name="wrongAddCategory">Something Went Wrong, Try Again</string>
     <string name="locationName">Location Name</string>
     <string name="change">Change</string>
-    <string name="expense_description">Expense Description</string>
+    <string name="expense_description">Expense Desc</string>
     <string name="expense_amount">Expense Amount</string>
     <string name="enter_amount">Enter Amount</string>
-    <string name="enter_description">Enter Description</string>
+    <string name="enter_description">Enter Desc</string>
     <string name="expense_date">Expense Date</string>
-    <string name="enter_location_name">Enter Location Name</string>
+    <string name="enter_location_name">Location Name</string>
     <string name="add_expense">Add Expense</string>
     <string name="from_date">From Date</string>
     <string name="to_date">To Date</string>
     <string name="total_amount">Total Amount</string>
+    <string name="errorLocation">Error Adding Location to Db</string>
+    <string name="errotAddExpense">Error Adding Expense to Db</string>
+    <string name="addExpenseSuccess">Expense Successfully Added</string>
+    <string name="editExpenseFail">Expense Wasnt Saved</string>
+    <string name="editExpenseSuccess">Expense Successfully Changed</string>
+    <string name="addCategoryFirst">Add A Category First</string>
+    <string name="wrongDates">Enter Dates Correctly</string>
 </resources>

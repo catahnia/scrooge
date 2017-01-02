@@ -47,9 +47,6 @@ public class MapFragment extends Fragment  {
         final Bundle locationBundle = this.getArguments();
 
 
-
-
-
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
 

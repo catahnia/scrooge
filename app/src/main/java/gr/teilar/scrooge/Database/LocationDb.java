@@ -39,6 +39,9 @@ public class LocationDb extends SQLiteOpenHelper{
     }
 
     public static long insertLocation (Context context, ExpenseLocation expenseLocation) {
+
+        long result;
+
         SQLiteOpenHelper helper = new LocationDb(context);
         SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
 
@@ -47,7 +50,11 @@ public class LocationDb extends SQLiteOpenHelper{
         values.put("location_longitude", expenseLocation.getLocationLongitude());
         values.put("location_name", expenseLocation.getLocationName());
 
-        return sqLiteDatabase.insert("locations", null, values);
+        result = sqLiteDatabase.insert("locations", null, values);
+
+        sqLiteDatabase.close();
+
+        return result;
 
     }
 

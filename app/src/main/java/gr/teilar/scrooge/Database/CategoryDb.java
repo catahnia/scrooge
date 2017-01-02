@@ -79,6 +79,7 @@ public class CategoryDb extends SQLiteOpenHelper {
 
     public static List<Category> getCategories(Context context) {
         List<Category> categories = new ArrayList<>();
+
         try {
             SQLiteOpenHelper helper = new CategoryDb(context);
             SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();

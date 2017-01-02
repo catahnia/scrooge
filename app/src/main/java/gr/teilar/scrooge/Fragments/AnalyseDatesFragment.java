@@ -134,7 +134,7 @@ public class AnalyseDatesFragment extends Fragment {
                 if( from.getTime()<=to.getTime()){
                     listener.OnAnalyse(from.getTime(), to.getTime());
                 } else {
-                    Toast.makeText(getActivity().getApplicationContext(),"Dates not right", Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.wrongDates, Toast.LENGTH_LONG);
                 }
 
             }

@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/euro_back"
     tools:context="gr.teilar.scrooge.EditExpenseActivity">
 
     <LinearLayout
@@ -78,9 +79,8 @@
 
     <Button
         android:text="@string/change"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editExpenseButton" />
+        android:id="@+id/editExpenseButton"
+        style="@style/ButtonStyle"/>
 
 
 </LinearLayout>

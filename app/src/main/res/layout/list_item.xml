@@ -11,22 +11,19 @@
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextViewAnalyseStyle"
             android:id="@+id/expenseDate"
             android:layout_weight="1" />
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextViewAnalyseStyle"
             android:id="@+id/expenseDescription"
             android:layout_weight="1" />
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextViewAnalyseStyle"
             android:id="@+id/expenseAmount"
             android:layout_weight="1" />
     </LinearLayout>
@@ -38,15 +35,13 @@
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextViewAnalyseStyle"
             android:id="@+id/expenseCategoryName"
             android:layout_weight="1" />
 
         <TextView
             android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/TextViewAnalyseStyle"
             android:id="@+id/expenseLocationName"
             android:layout_weight="1" />
     </LinearLayout>

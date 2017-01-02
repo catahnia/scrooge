@@ -76,9 +76,9 @@ public class EditExpenseActivity extends AppCompatActivity {
                 result = ExpenseDb.editExpense(EditExpenseActivity.this, expenseId, description, amount, selectedCategory.getCategoryId());
 
                 if (result == -1){
-                    Toast.makeText(getApplicationContext(), "Expense was not saved", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.editExpenseFail, Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Expense Successfully changed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.editExpenseSuccess, Toast.LENGTH_LONG).show();
                 }
 
 

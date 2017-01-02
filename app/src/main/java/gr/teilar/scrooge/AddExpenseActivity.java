@@ -63,11 +63,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         setContentView(R.layout.activity_test);
 
         AddExpenseFragment expenseFragment = new AddExpenseFragment();
-        //MapFragment mapFragment = new MapFragment();
 
-
-        //ena = (TextView) findViewById(R.id.textView2);
-        //dio = (TextView) findViewById(R.id.textView3);
         geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
 
 
@@ -75,8 +71,6 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.fragment, expenseFragment);
-        ft.addToBackStack(null);
-        //ft.replace(R.id.map, mapFragment);
         ft.commit();
 
 
@@ -105,8 +99,6 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
         createLocationRequest();
-
-
 
     }
 
@@ -176,8 +168,9 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,
                     mLocationRequest, this);
 
-            startMapFragment();
-
+            if(mCurrentLocation!=null) {
+                startMapFragment();
+            }
         }
     }
 
@@ -233,7 +226,6 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.map, mapFragment);
-        ft.addToBackStack(null);
         ft.commit();
     }
 
@@ -254,7 +246,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         }
 
         if (resultLocation == -1 ) {
-            Log.v("Add Location", "Sfalma");
+            Toast.makeText(this, R.string.errorLocation, Toast.LENGTH_LONG).show();
 
         } else {
             expenseLocation1.setLocationId(resultLocation);
@@ -278,15 +270,12 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
             }
 
             if(resultExpense == -1) {
-                Toast.makeText(this,"Something Went Wrong, We re Sorry", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.errotAddExpense, Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(this,"Expense Successfully Added", Toast.LENGTH_LONG).show();
+                Toast.makeText(this,R.string.addExpenseSuccess, Toast.LENGTH_LONG).show();
             }
         }
-
-
-
 
     }
 }

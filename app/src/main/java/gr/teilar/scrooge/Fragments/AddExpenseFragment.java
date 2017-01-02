@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,16 +40,15 @@ public class AddExpenseFragment extends Fragment {
 
     private Calendar myCalendar = Calendar.getInstance();
 
-    private TextView editDate;
+    private Button editDate;
 
     private List<Category> categories = new ArrayList<>();
 
     private Category selectedCategory;
 
+    private Button addExpenseButton;
+
     OnAddExpenseListener listener;
-
-
-
 
 
     public AddExpenseFragment() {
@@ -65,12 +65,19 @@ public class AddExpenseFragment extends Fragment {
         Date today = new Date();
 
 
-        editDate = (TextView) rootView.findViewById(R.id.dateFrag);
+        editDate = (Button) rootView.findViewById(R.id.dateFrag);
         editDate.setText(new SimpleDateFormat("dd/MM/yy").format(today));
 
         Button addCategoryButton = (Button) rootView.findViewById(R.id.addCategoryButton);
 
-        Button addExpenseButton = (Button) rootView.findViewById(R.id.addExpenseButton);
+        addExpenseButton = (Button) rootView.findViewById(R.id.addExpenseButton);
+
+        if (categories.size()<1){
+            addExpenseButton.setEnabled(false);
+            Toast.makeText(getActivity().getApplicationContext(), R.string.addCategoryFirst, Toast.LENGTH_LONG).show();
+        } else {
+            addExpenseButton.setEnabled(true);
+        }
 
         final EditText amount = (EditText) rootView.findViewById(R.id.amountfrag);
 
@@ -89,7 +96,6 @@ public class AddExpenseFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedCategory = categories.get(i);
-                Log.v("selected",Long.toString(selectedCategory.getCategoryId()));
             }
 
             @Override

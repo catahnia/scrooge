@@ -36,16 +36,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ButtonStyle"
             android:id="@+id/from_date"
             android:layout_weight="1" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ButtonStyle"
             android:id="@+id/to_date"
-            android:layout_weight="1" />
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -55,9 +53,7 @@
         android:layout_gravity="center">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            style="@style/ButtonStyle"
             android:text="@string/analyseExpenses"
             android:id="@+id/analyseExpenses"/>
 
