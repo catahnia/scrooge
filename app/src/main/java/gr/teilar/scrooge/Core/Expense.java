@@ -72,17 +72,6 @@ public class Expense {
         this.expenseExpenseLocation = expenseExpenseLocation;
     }
 
-    @Override
-    public String toString() {
-        return "Expense{" +
-                "expenseId=" + expenseId +
-                ", expenseDate=" + expenseDate +
-                ", expenseDescription='" + expenseDescription + '\'' +
-                ", expenseAmount=" + expenseAmount +
-                ", expenseExpenseLocation=" + expenseExpenseLocation.getLocationId() +
-                ", expenseCategory=" + expenseCategory.getCategoryId() +
-                '}';
-    }
 
     public void setCategoryId(long id) {
         this.expenseCategory = new Category();

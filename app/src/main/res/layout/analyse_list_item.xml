@@ -11,12 +11,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/category_name"/>
+            android:text="@string/category_name"
+            android:layout_weight="1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/categoryNameTextView"/>
+            android:id="@+id/categoryNameTextView"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -27,12 +29,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/total_amount"/>
+            android:text="@string/total_amount"
+            android:layout_weight="1"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/amountfrag"/>
+            android:id="@+id/amountfrag"
+            android:layout_weight="1" />
     </LinearLayout>
 
 </LinearLayout>

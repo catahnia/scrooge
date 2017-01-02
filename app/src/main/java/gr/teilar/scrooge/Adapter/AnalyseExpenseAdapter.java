@@ -1,6 +1,7 @@
 package gr.teilar.scrooge.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,9 +37,6 @@ public class AnalyseExpenseAdapter extends ArrayAdapter<Expense> {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.analyse_list_item, parent, false);
         }
-
-        Log.v("adapter", currentExpense.getExpenseCategory().getCategoryName());
-
 
         TextView categoryTextView = (TextView) listItemView.findViewById(R.id.categoryNameTextView);
 

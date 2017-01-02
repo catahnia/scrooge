@@ -1,7 +1,6 @@
 package gr.teilar.scrooge.Fragments;
 
 
-import android.app.ListFragment;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -10,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import gr.teilar.scrooge.Adapter.AnalyseExpenseAdapter;
@@ -22,7 +19,7 @@ import gr.teilar.scrooge.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AnalysedListFragment extends ListFragment {
+public class AnalysedListFragment extends Fragment {
 
 
 
@@ -42,9 +39,8 @@ public class AnalysedListFragment extends ListFragment {
         List<Expense> analysedExpenses = ExpenseDb.getAnalysedExpenses(getActivity().getApplicationContext(),
                 bundle.getLong("From"), bundle.getLong("To"));
 
-        Log.v("fragment", analysedExpenses.get(0).getExpenseCategory().getCategoryName());
 
-        AnalyseExpenseAdapter adapter = new AnalyseExpenseAdapter(getActivity().getApplicationContext(), analysedExpenses);
+        AnalyseExpenseAdapter adapter = new AnalyseExpenseAdapter(getActivity(), analysedExpenses);
 
         ListView listView = (ListView) rootView.findViewById(R.id.analysedList);
 
