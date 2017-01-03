@@ -74,6 +74,7 @@ public class MapFragment extends Fragment  {
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
                 googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
             }
         });
 
@@ -86,8 +87,6 @@ public class MapFragment extends Fragment  {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-
 
     }
 

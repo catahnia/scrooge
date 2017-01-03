@@ -2,8 +2,6 @@ package gr.teilar.scrooge;
 
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,12 +20,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import gr.teilar.scrooge.Core.Category;
 import gr.teilar.scrooge.Core.Expense;
@@ -48,24 +43,23 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
     private Location mCurrentLocation;
 
-    private Geocoder geocoder;
+    //private Geocoder geocoder;
 
-    private List<Address> address;
+    //private List<Address> address;
 
     private FragmentTransaction ft;
 
     private MapFragment mapFragment = new MapFragment();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+
+        //geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
+/*
         AddExpenseFragment expenseFragment = new AddExpenseFragment();
-
-        geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
-
 
         // FragmentTransaction
 
@@ -73,7 +67,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         ft.replace(R.id.fragment, expenseFragment);
         ft.commit();
 
-
+*/
         buildGoogleApiClient();
         // Σύνδεση με τον GoogleApiClient μετά την δημιουργία του.
         googleApiClient.connect();
@@ -169,6 +163,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
                     mLocationRequest, this);
 
             if(mCurrentLocation!=null) {
+                startExpenseFragment();
                 startMapFragment();
             }
         }
@@ -229,6 +224,25 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         ft.commit();
     }
 
+    private void startExpenseFragment() {
+        AddExpenseFragment expenseFragment = new AddExpenseFragment();
+        Bundle b = new Bundle();
+
+        String name = LocationDb.getLocationName(this, mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude());
+
+        if(name.equals("")){
+            b.putString("locationName", name);
+
+        } else {
+            b.putString("locationName", "");
+        }
+        expenseFragment.setArguments(b);
+        // FragmentTransaction
+
+        ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment, expenseFragment);
+        ft.commit();
+    }
 
     @Override
     public void onAddExpense(Category selectedCategory, String expenseDate,

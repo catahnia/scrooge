@@ -2,6 +2,7 @@ package gr.teilar.scrooge.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -78,11 +79,40 @@ public class LocationDb extends SQLiteOpenHelper{
 
         }
         catch (SQLiteException e) {
-            Log.v("Error Read Categories", e.toString());
+            Log.v("Error Read Locations", e.toString());
 
         }
 
         return expenseLocation;
+    }
+
+    public static String getLocationName (Context context, double latitude, double longitude) {
+
+        String locationName = "";
+
+        String roundLat = "round("+Double.toString(latitude)+",0)";
+        String roundLong = "round("+Double.toString(longitude)+",0)";
+        try {
+            SQLiteOpenHelper helper = new CategoryDb(context);
+            SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
+
+
+            Cursor cursor = sqLiteDatabase.query("locations", new String[] {"location_name"}
+                    , "round(location_latitude,0)=? and round(location_longitude,0)=?",new String[] {roundLat,roundLong},null,null,null);
+
+            while (cursor.moveToNext()){
+                locationName = cursor.getString(0);
+                Log.v("tesloc",locationName);
+            }
+
+            cursor.close();
+            sqLiteDatabase.close();
+        } catch (SQLiteException e) {
+            Log.v("Error Read Locations", e.toString());
+
+        }
+        return locationName;
+
     }
 
 }

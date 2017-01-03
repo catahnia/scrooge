@@ -28,8 +28,10 @@ import java.util.List;
 import java.util.Locale;
 
 import gr.teilar.scrooge.AddCategoryActivity;
+import gr.teilar.scrooge.AddExpenseActivity;
 import gr.teilar.scrooge.Core.Category;
 import gr.teilar.scrooge.Database.CategoryDb;
+import gr.teilar.scrooge.Database.LocationDb;
 import gr.teilar.scrooge.R;
 
 
@@ -48,6 +50,8 @@ public class AddExpenseFragment extends Fragment {
 
     private Button addExpenseButton;
 
+    EditText locationName;
+
     OnAddExpenseListener listener;
 
 
@@ -63,6 +67,8 @@ public class AddExpenseFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_add_expense, container, false);
 
         Date today = new Date();
+
+        Bundle b = this.getArguments();
 
 
         editDate = (Button) rootView.findViewById(R.id.dateFrag);
@@ -83,10 +89,11 @@ public class AddExpenseFragment extends Fragment {
 
         final EditText description = (EditText) rootView.findViewById(R.id.descriptionFrag);
 
-        final EditText locationName = (EditText) rootView.findViewById(R.id.locationNameEditText);
+        locationName = (EditText) rootView.findViewById(R.id.locationNameEditText);
 
-
-
+        if(!(b.getString("locationName").equals(""))){
+            locationName.setText(b.getString("locationName"));
+        }
 
         final Spinner category = (Spinner) rootView.findViewById(R.id.categoryFrag);
         ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item, categories);
@@ -164,6 +171,11 @@ public class AddExpenseFragment extends Fragment {
 
 
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void updateLabel() {
