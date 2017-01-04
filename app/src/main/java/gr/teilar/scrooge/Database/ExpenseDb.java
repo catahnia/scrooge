@@ -44,6 +44,7 @@ public class ExpenseDb extends SQLiteOpenHelper {
 
     }
 
+    //Μέθοδος για την είσοδο ενός εξόδου
     public static long insertExpense (Context context, Expense expense) {
 
         long result;
@@ -66,6 +67,7 @@ public class ExpenseDb extends SQLiteOpenHelper {
 
     }
 
+    //Μέθοδος που επιστρέφει τη λίστα με όλα τα έξοδα της βάσης
     public static List<Expense> getExpenses(Context context) {
         List<Expense> expenses = new ArrayList<>();
         try {
@@ -89,6 +91,8 @@ public class ExpenseDb extends SQLiteOpenHelper {
             Log.v("Error Read Expenses", e.toString());
         }
 
+        //Εδώ, για κάθε έξοδο που υπάρχει στη βάση, διαβάζουμε (με βάση το αντίστοιχο αποθηκευμενο id) την κατηγορια και
+        //την τοποθεσια του εξόδου, καθώς και τις αντίστοιχες πληροφορίες τους
         for (Expense expense : expenses) {
             expense.setExpenseCategory(CategoryDb.getCategory(context, expense.getExpenseCategory().getCategoryId()));
             expense.setExpenseExpenseLocation(LocationDb.getLocation(context, expense.getExpenseExpenseLocation().getLocationId()));
@@ -98,6 +102,7 @@ public class ExpenseDb extends SQLiteOpenHelper {
         return expenses;
     }
 
+    //Μέθοδος για την ενήμερωση ενός εξόδου
     public static int editExpense(Context context, long expenseId, String description, float amount, Long categoryId){
 
         int result=-1;
@@ -123,6 +128,8 @@ public class ExpenseDb extends SQLiteOpenHelper {
         return result;
     }
 
+    //Μέθοδος που χρησιμεύει στην ανάλυση εξόδων.
+    //Παίρνει δύο ημερομηνίες και κάνει αναζήτηση κάνοντας groupBy categoryId και orderBy το μεγαλύτερο σύνολο
     public static List<Expense> getAnalysedExpenses (Context context, long from, long to){
 
         List<Expense> expenses = new ArrayList<>();
@@ -139,7 +146,6 @@ public class ExpenseDb extends SQLiteOpenHelper {
                 e.setCategoryId(cursor.getLong(0));
                 e.setExpenseAmount(cursor.getFloat(1));
                 expenses.add(e);
-                Log.v("test", Long.toString(cursor.getLong(0)));
             }
 
             cursor.close();

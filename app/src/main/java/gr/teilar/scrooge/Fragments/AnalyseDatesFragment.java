@@ -35,6 +35,10 @@ public class AnalyseDatesFragment extends Fragment {
 
     OnAnalyseButtonListener listener;
 
+    //Το παρών fragment καλείται απ την δραστηριότητα AnalyseExpenses και περίεχει τρία κουμπιά,
+    //δύο για την επιλογή ημερομηνιών κι ένα για την εμφάνιση των αποτελεσμάτων.
+    //Δηλώνουμε κι ενα interface για να στείλουμε τις ημερομηνίες στο fragment που εμφανίζει την ανάλυση
+
     final DatePickerDialog.OnDateSetListener dateFrom = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -124,6 +128,7 @@ public class AnalyseDatesFragment extends Fragment {
                 Date from = null;
                 Date to = null;
 
+                //Μετατροπή των δεθέντων ημερομηνιών σε Date
                 try {
                     from = sdf.parse(fromDate);
                     to = sdf.parse(toDate);
@@ -131,6 +136,7 @@ public class AnalyseDatesFragment extends Fragment {
                     e.printStackTrace();
                 }
 
+                //Έλεγχος για το αν οι ημερομηνίες είναι σωστά χρονικά
                 if( from.getTime()<=to.getTime()){
                     listener.OnAnalyse(from.getTime(), to.getTime());
                 } else {
@@ -157,6 +163,9 @@ public class AnalyseDatesFragment extends Fragment {
 
     }
 
+
+    //Η δήλωση του interface και η δήλωση της μεθόδου onAnalyse που θα πρέπει να υλοποιήσει η δραστηριότηα
+    // που θα ξεκινήσει το fragment με την ανάλυση
     public interface OnAnalyseButtonListener {
         void OnAnalyse (long from, long to);
     }

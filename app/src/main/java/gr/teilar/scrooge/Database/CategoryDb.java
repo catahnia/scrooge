@@ -28,23 +28,26 @@ public class CategoryDb extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
+    //Χρησιμοποιέιται για την δημιουργία της βάσης. Επείδη για να κάνει ο χρήστης το οτιδίποτε,
+    // πρέπει πρώτα να δημιουργήσει κατηγόρια, έτσι δημιουργούμε εδώ τη βάση.
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
+        //Πίνακας για τις κατηγορίες
         sqLiteDatabase.execSQL("CREATE TABLE categories ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "category_name TEXT, "
                 + "category_description TEXT, "
                 + "category_image_id INTEGER);");
 
+        //Πίνακας για τις τοποθεσίες
         sqLiteDatabase.execSQL("CREATE TABLE locations ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "location_latitude REAL, "
                 + "location_longitude REAL, "
                 + "location_name TEXT);");
 
-
+        //Πίνακας για τα έξοδα
         sqLiteDatabase.execSQL("CREATE TABLE expenses ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + "expense_date INTEGER, "
@@ -61,6 +64,7 @@ public class CategoryDb extends SQLiteOpenHelper {
 
     }
 
+    //Μέθοδος για την είσοδο κατηγορίας
     public static long insertCategory (Context context,Category category) {
         SQLiteOpenHelper helper = new CategoryDb(context);
         SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
@@ -77,6 +81,7 @@ public class CategoryDb extends SQLiteOpenHelper {
 
     }
 
+    //Μέθοδος που μας επιστρέφει τις αποθηκευμένες κατηγορίες
     public static List<Category> getCategories(Context context) {
         List<Category> categories = new ArrayList<>();
 
@@ -101,6 +106,7 @@ public class CategoryDb extends SQLiteOpenHelper {
         return categories;
     }
 
+    //Μέθοδος που επιστρέφει κατηγορία με βάση το id της
     public static Category getCategory (Context context, long id) {
         Category category = new Category();
         try {

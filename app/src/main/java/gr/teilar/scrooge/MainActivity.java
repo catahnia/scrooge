@@ -20,12 +20,15 @@ public class MainActivity extends AppCompatActivity {
         Button seeExpensesButton = (Button) findViewById(R.id.seeExpensesButton);
         Button analyseButton = (Button) findViewById(R.id.analyseExpenses);
 
+        //Σ αυτή τη δραστηριότητα έχουμε 4 κουμπία που το καθένα μας πηγαίνει στην αντίστοιχη δραστηριότητα με τα ζητούμενα
+        //της εργασιας.Για κάθε ένα απο τα κουμπία έχουμε κι έναν listener, οποίο καλείται όταν πατηθέι κάποιο κουμπί,
+        //δημιουργεί ένα intent και ξεκινάει τη δραστηριότητα.
+
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addCategoryIntent = new Intent(MainActivity.this, AddCategoryActivity.class);
                 startActivity(addCategoryIntent);
-
             }
         });
 
@@ -42,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent seeExpensesIntent = new Intent(MainActivity.this, SeeExpensesActivity.class);
                 startActivity(seeExpensesIntent);
-
             }
         });
 
@@ -51,17 +53,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent analyseIntent = new Intent(MainActivity.this, AnalyseExpensesActivity.class);
                 startActivity(analyseIntent);
-
             }
         });
 
-
-
     }
-
-
-
-
-
 
 }

@@ -27,6 +27,8 @@ public class AnalysedListFragment extends Fragment {
         // Required empty public constructor
     }
 
+    //Αυτό το fragment δείχνει μια λίστα με την ανάλυση των εξόδων.
+    //Για την εμφάνιση χρησιμοποιουμε έναν δικό μας adapter που επεκτείνει τον ArrayAdapter
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

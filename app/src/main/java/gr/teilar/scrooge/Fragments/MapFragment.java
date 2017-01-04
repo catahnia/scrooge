@@ -36,6 +36,7 @@ public class MapFragment extends Fragment  {
     }
 
 
+    //Fragment που περιέχει ενα mapView για την εμφάνιση του χάρτη.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class MapFragment extends Fragment  {
 
         View rootView = inflater.inflate(R.layout.fragment_map,container, false);
 
+        //Λήψη των συντεταγμένων απ το bundle
         final Bundle locationBundle = this.getArguments();
 
 

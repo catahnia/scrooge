@@ -34,4 +34,5 @@
     <string name="editExpenseSuccess">Expense Successfully Changed</string>
     <string name="addCategoryFirst">Add A Category First</string>
     <string name="wrongDates">Enter Dates Correctly</string>
+    <string name="add_new_category">Add New</string>
 </resources>

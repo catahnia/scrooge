@@ -21,6 +21,8 @@ import gr.teilar.scrooge.R;
  * Created by Mitsos on 30/12/16.
  */
 
+//Custom ArrayAdapter που δέχεται σαν είσοδο λίστα απο έξοδα και τα εμφανίζει σύμφωνα με το layout
+//που έχουμε ορίσει. Κάνουμε υλοοποίηση της getView που ειναι η συναρτηση που καλείεται απο κάθε arrayAdapter
 public class ExpenseAdapter extends ArrayAdapter<Expense> {
 
     public ExpenseAdapter (Context context, List<Expense> expenses) {
