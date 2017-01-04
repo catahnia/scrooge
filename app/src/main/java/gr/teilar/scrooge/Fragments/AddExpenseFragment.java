@@ -59,17 +59,18 @@ public class AddExpenseFragment extends Fragment {
         // Required empty public constructor
     }
 
+    //Σ αυτό το fragment υπάρχει η φόρμα για την εισαγωγή των στοιχείων του εξόδου.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the layout for this fragment με σκοπό να αποκτήσουμε πρόσβαση στα γραφηκά στοιχεία του fragment
+        // και αφού τα επεξεργαστούμε, στο τέλος της createview θα επιστρέψουμε το view
         View rootView = inflater.inflate(R.layout.fragment_add_expense, container, false);
 
         Date today = new Date();
 
         Bundle b = this.getArguments();
-
 
         editDate = (Button) rootView.findViewById(R.id.dateFrag);
         editDate.setText(new SimpleDateFormat("dd/MM/yy").format(today));
@@ -78,6 +79,8 @@ public class AddExpenseFragment extends Fragment {
 
         addExpenseButton = (Button) rootView.findViewById(R.id.addExpenseButton);
 
+        //Εδώ ελέγχουμε αν έχει εισαχθεί κάποια κατηγορία. αν ναι ενεργοποιούμε το κουμπί για την εισαγωγή εξόδου,
+        //αν δεν υπάρχουν έξοδα τότε εμφανίζουμε μήνυμα για εισαγωγή κατηγορίας.
         if (categories.size()<1){
             addExpenseButton.setEnabled(false);
             Toast.makeText(getActivity().getApplicationContext(), R.string.addCategoryFirst, Toast.LENGTH_LONG).show();
@@ -91,6 +94,7 @@ public class AddExpenseFragment extends Fragment {
 
         locationName = (EditText) rootView.findViewById(R.id.locationNameEditText);
 
+        //Εδώ παίρνουμε την παράμετρο απ το bundle που αφορά το όνομα της τοποθεσίας (αν έχει βρεθεί) και το εμφανίζουμε
         if(!(b.getString("locationName").equals(""))){
             locationName.setText(b.getString("locationName"));
         }
@@ -110,6 +114,8 @@ public class AddExpenseFragment extends Fragment {
 
             }
         });
+
+        //O ορισμός της DatePickerDialog και η υλοποίηση του OnDateSetListener
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
@@ -123,7 +129,8 @@ public class AddExpenseFragment extends Fragment {
 
         };
 
-
+        //Listener που καλείται οταν πατήσουμε το κουμπή της ημερομηνίας.
+        //και υλοποιεί ενα αντικείμενο τύπου datePickerDialog
         editDate.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -135,6 +142,8 @@ public class AddExpenseFragment extends Fragment {
             }
         });
 
+        //Ο listener για όταν πατάμε το κουμπί για την προσθήκη κατηγορίας, όπου ξεκινάει την δραστηριότητα για την
+        //προσθήκη κατηγορίας
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,6 +152,7 @@ public class AddExpenseFragment extends Fragment {
             }
         });
 
+        //Ο listener για όταν πατάμε το κουμπί για την προσθήκη του εξόδου
         addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,6 +188,7 @@ public class AddExpenseFragment extends Fragment {
         super.onResume();
     }
 
+    //Βοηθητική συνάρτηση για την ενημέρωση του κειμένου στο κουμπί που επιλέγουμε ημερομηνία
     private void updateLabel() {
 
 
@@ -187,6 +198,15 @@ public class AddExpenseFragment extends Fragment {
         editDate.setText(sdf.format(myCalendar.getTime()));
     }
 
+    //Δηλώνουμε ενα interface με μια μοναδική συνάρτηση την onAddExpense. Την onAddExpense θα την υλοποιησουμε
+    //στη δραστηρίοτητα που ξεκίνησε το συγκεκριμένο fragment με σκοπό να περάσουμε τα στοιχεία που εισήγαγε ο χρήστης.
+    //Δεν προσθέτουμε το έξοδο εδώ, γιατί μας λείπουν οι συντεταγμένες του εξόδου.
+    //
+    //
+    //Στην παρούσα έκδοση της εφαρμογής, τα δύο fragment ξεκινάν αφού αποκτήσουμε πρόσβση στην τοποθέσια, λογώ του ότι
+    //κοιτάμε στη βάση για το όνομα βάση των συντεταγμένων. Πριν την υλοποίηση αυτης της δυνατότητας, το συγκεκριμένο
+    //fragment ξεκινούσε πριν αποκτήσουμε πρόσβαση στην τοποθεσία κι άρα δεν μπορούσε να εχει τις συντεταγμένες κι ετσι
+    // δεν μπορούσε να κάνει την αποθήκευση. Θα μπορούσε να κάνει το fragment την αποθήκευση, αλλα το άφησα ως είχε.
     public interface OnAddExpenseListener {
         void onAddExpense(Category selectedCategory, String expenseDate,
                                  String expenseAmount, String expenseDescription, String expenseLocation);

@@ -15,6 +15,9 @@ import gr.teilar.scrooge.Fragments.AnalysedListFragment;
 public class AnalyseExpensesActivity extends AppCompatActivity implements AnalyseDatesFragment.OnAnalyseButtonListener {
 
 
+    //Δραστηριότητα για την εμφάνιση της ανάλυσης των εξόδων
+    //Αποτείται απο δύο fragments, ένα για την εμφάνιση της επιλογής των ημερομηνιών
+    //κι ένα για την εμφάνιση της λίστας με τα αποτελέσματα
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,8 @@ public class AnalyseExpensesActivity extends AppCompatActivity implements Analys
 
     }
 
+    //Συνάρτηση υλοποίησης του interface στο fragment που επιλεχθηκάν οι ημερομηνίες
+    //και εκκίνηση του fragment με τη λίστα των αποτελεσμάτων
     @Override
     public void OnAnalyse(long from, long to) {
 

@@ -68,6 +68,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         ft.commit();
 
 */
+        //Δημιουργία της αίτησης στον GoogleApiClient
         buildGoogleApiClient();
         // Σύνδεση με τον GoogleApiClient μετά την δημιουργία του.
         googleApiClient.connect();
@@ -162,6 +163,8 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,
                     mLocationRequest, this);
 
+            //Μετά τον έλεγχο για την άδεια χρήσης της τρέχουσας τοποθεσίας, και αφού αποκτήσουμε συντεταγμένες
+            // καλούμε τις συναρτήσεις που ξεκινούν τα fragments της δραστηριότητας
             if(mCurrentLocation!=null) {
                 startExpenseFragment();
                 startMapFragment();
@@ -213,7 +216,11 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
     }
 
+    //Συνάρτηση για την έναρξη του fragment του χάρτη
     private void startMapFragment () {
+
+        //Βάζουμε στο bundle τις συντεταγμένες της τοποθεσίας μας, για να εμφανιστούν στον χάρτη
+        //(αντίστοιχο του putExtra για τα activities)
         Bundle b = new Bundle();
         b.putDouble("lat", mCurrentLocation.getLatitude());
         b.putDouble("long", mCurrentLocation.getLongitude());
@@ -224,13 +231,17 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         ft.commit();
     }
 
+    //Συνάρτηση για την έναρξη του fragment με τη φόρμα του εξόδου
     private void startExpenseFragment() {
+
         AddExpenseFragment expenseFragment = new AddExpenseFragment();
         Bundle b = new Bundle();
 
+        //Αναζήτηση στη βάση με τις τρέχουσες συνταταγμένες για να πάρουμε, τυχών ονομα αν υπάρχει
         String name = LocationDb.getLocationName(this, mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude());
 
-        if(name.equals("")){
+        //Αν η βάση επέστρεψε ονομα το βάζουμε στο bundle αλλιώς βάζουμε ένα κενό String
+        if(!(name.equals(""))){
             b.putString("locationName", name);
 
         } else {
@@ -244,21 +255,27 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         ft.commit();
     }
 
+    //Είναι συνάρτηση υλοποίησης του interface στο fragment AddExpense
+    //Απο το fragment παιρνάμε τις παραμέτρους που έδωσε ο χρήστης για να αποθηκεύσουμε το έξοδο
     @Override
     public void onAddExpense(Category selectedCategory, String expenseDate,
                              String expenseAmount, String expenseDescription, String expenseLocation) {
 
         float amount = Float.parseFloat(expenseAmount);
+        //Δημιουργούμε ένα αντικείμενο Location με τις συντεταγμένες και το όνομα που έδωσε ο χρήστης
         ExpenseLocation expenseLocation1 = new ExpenseLocation(expenseLocation, mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
+
         long resultLocation = 0;
         long resultExpense = 0;
+
+        //Εισάγουμε πρώτα το αντικείμενο της τοποθεσίας στην βάση
         try {
             resultLocation = LocationDb.insertLocation(AddExpenseActivity.this, expenseLocation1);
         } catch (SQLiteException e) {
             Log.v("Add Location", e.toString());
-
         }
 
+        //Αν είναι επιτυχής η αποθήκευση της τοποθεσίας προχωρούμε στην αποθήκευση του εξόδου, αλλιώς εμφανίζουμε μήνυμα λαθους
         if (resultLocation == -1 ) {
             Toast.makeText(this, R.string.errorLocation, Toast.LENGTH_LONG).show();
 
@@ -269,6 +286,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
             Date date = null;
             try {
+                //Μετατροπή του κειμένου της ημερομηνίας σε αριθμό
                 date = sdf.parse(expenseDate);
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -283,6 +301,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
                 Log.v("Add Expense", e.toString());
             }
 
+            //Εμφάνιση μηνύματος είτε η αποθήκευση του εξόδου είναι επιτυχής ή όχι.
             if(resultExpense == -1) {
                 Toast.makeText(this, R.string.errotAddExpense, Toast.LENGTH_LONG).show();
             }

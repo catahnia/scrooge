@@ -35,11 +35,12 @@ public class EditExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_expense);
 
+        //Σ αυτή τη δραστηριότητα παίρνουμε το Intent και αποθηκεύμουμε τα έξτρα που έχει.
+        //Στη συνέχεια παίρνουμε τα στοιχεία της διάταξης και εμφανίζουμε στην οθόνη τα στοιχεία που πήραμε απ το intent
+        //Τέλος έχουμε ενα κουμπί που διαβάζει τα στοιχεία που υπάρχουν στην οθόνη και τα αποθηκεύει στη βάση.
         categories = CategoryDb.getCategories(this);
 
         final Intent intent = getIntent();
-
-
 
         final EditText descriptionEditTest = (EditText) findViewById(R.id.descriptionEditText);
         final EditText amountEditText = (EditText) findViewById(R.id.amountEditText);
@@ -51,6 +52,9 @@ public class EditExpenseActivity extends AppCompatActivity {
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,categories);
         categorySpinner.setAdapter(arrayAdapter);
+
+        //Εδώ, λόγω του ότι οι κατηγορίες αποθηκεόνται με autoincrement key ξερουμε οτι θα έχουν id 1,2 ...
+        //Έτσι η θέση στη λίστα θα είναι ότι το id -1 , λόγω του ότι η αρίθμηση ξεκινά απ το μηδέν.
         categorySpinner.setSelection((int)(intent.getLongExtra(CATEGORY,0))-1);
 
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -80,7 +84,6 @@ public class EditExpenseActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.editExpenseSuccess, Toast.LENGTH_LONG).show();
                 }
-
 
             }
         });

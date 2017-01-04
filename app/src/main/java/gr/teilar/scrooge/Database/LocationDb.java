@@ -39,6 +39,7 @@ public class LocationDb extends SQLiteOpenHelper{
 
     }
 
+    //Μέθοδος για την είσοδο μιας νέας τοποθεσίας
     public static long insertLocation (Context context, ExpenseLocation expenseLocation) {
 
         long result;
@@ -59,6 +60,7 @@ public class LocationDb extends SQLiteOpenHelper{
 
     }
 
+    //Μέθοδο για να διαβάσουμε μία τοποθεσία με βάση το id της
     public static ExpenseLocation getLocation (Context context, long id) {
         ExpenseLocation expenseLocation = new ExpenseLocation();
         try {
@@ -86,23 +88,24 @@ public class LocationDb extends SQLiteOpenHelper{
         return expenseLocation;
     }
 
+    //Μέθοδος που επιστρεφει το όνομα μιας τοποθεσίας, με βάση δύο συντεταγμένων, αν υπάρχει τέτοιο στη βάση
     public static String getLocationName (Context context, double latitude, double longitude) {
 
         String locationName = "";
 
-        String roundLat = "round("+Double.toString(latitude)+",0)";
-        String roundLong = "round("+Double.toString(longitude)+",0)";
+        String roundLat = "round("+Double.toString(latitude)+",2)";
+        String roundLong = "round("+Double.toString(longitude)+",2)";
+
         try {
             SQLiteOpenHelper helper = new CategoryDb(context);
             SQLiteDatabase sqLiteDatabase = helper.getReadableDatabase();
 
 
             Cursor cursor = sqLiteDatabase.query("locations", new String[] {"location_name"}
-                    , "round(location_latitude,0)=? and round(location_longitude,0)=?",new String[] {roundLat,roundLong},null,null,null);
+                    , "round(location_latitude,2)=? and round(location_longitude,2)=?",new String[] {roundLat,roundLong},null,null,null);
 
             while (cursor.moveToNext()){
                 locationName = cursor.getString(0);
-                Log.v("tesloc",locationName);
             }
 
             cursor.close();
