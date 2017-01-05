@@ -31,17 +31,22 @@ public class AddCategoryActivity extends AppCompatActivity {
                 //Μεταβλητή αποθήκευσης αποτελέσματος που επιστράφηκε απ τη βάση.
                 Long result;
 
-                //Χρησιμοποιούμε την παρακάτω συνάρτηση για την αποθήκευση της κατηγορίας.
-                result = CategoryDb.insertCategory(AddCategoryActivity.this , new Category(categoryNameEditText.getText().toString(),categoryDescriptionEditText.getText().toString()));
+                if(categoryNameEditText.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(), "Enter Name!", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    //Χρησιμοποιούμε την παρακάτω συνάρτηση για την αποθήκευση της κατηγορίας.
+                    result = CategoryDb.insertCategory(AddCategoryActivity.this, new Category(categoryNameEditText.getText().toString(), categoryDescriptionEditText.getText().toString()));
 
-                //Αν αυτό που επέστρψε η συνάρτηση αποθήκευσης στην βάση είναι -1, τότε δεν έγινε η αποθήκευση
-                //και εμφανίζεται μήνυμα λάθους. Αλλίως εμφανίζεται μήνυμα επιτυχίας και καθαρίζονται τα πεδία.
-                if(result == -1) {
-                    Toast.makeText(getApplicationContext() , R.string.wrongAddCategory, Toast.LENGTH_LONG).show();
-                } else {
-                    categoryNameEditText.setText("");
-                    categoryDescriptionEditText.setText("");
-                    Toast.makeText(getApplicationContext() , R.string.successAddCategory, Toast.LENGTH_LONG).show();
+                    //Αν αυτό που επέστρψε η συνάρτηση αποθήκευσης στην βάση είναι -1, τότε δεν έγινε η αποθήκευση
+                    //και εμφανίζεται μήνυμα λάθους. Αλλίως εμφανίζεται μήνυμα επιτυχίας και καθαρίζονται τα πεδία.
+                    if (result == -1) {
+                        Toast.makeText(getApplicationContext(), R.string.wrongAddCategory, Toast.LENGTH_LONG).show();
+                    } else {
+                        categoryNameEditText.setText("");
+                        categoryDescriptionEditText.setText("");
+                        Toast.makeText(getApplicationContext(), R.string.successAddCategory, Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

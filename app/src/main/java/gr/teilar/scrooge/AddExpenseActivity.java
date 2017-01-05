@@ -2,6 +2,8 @@ package gr.teilar.scrooge;
 
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,9 +22,12 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import gr.teilar.scrooge.Core.Category;
 import gr.teilar.scrooge.Core.Expense;
@@ -43,9 +48,9 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
 
     private Location mCurrentLocation;
 
-    //private Geocoder geocoder;
+    private Geocoder geocoder;
 
-    //private List<Address> address;
+    private List<Address> address;
 
     private FragmentTransaction ft;
 
@@ -57,7 +62,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         setContentView(R.layout.activity_test);
 
 
-        //geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
+        geocoder = new Geocoder(getBaseContext(), Locale.getDefault());
 /*
         AddExpenseFragment expenseFragment = new AddExpenseFragment();
 
@@ -146,20 +151,13 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         if (mLocationPermissionGranted) {
             mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 
-            /*
+
             try {
                 address = geocoder.getFromLocation(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude(), 1);
-                if (address.size()>0) {
-                    //ena.setText(address.get(0).getAddressLine(0));
-                    //dio.setText(address.get(0).toString());
-                }
-                else {
-                    //ena.setText(Double.toString(mCurrentLocation.getLatitude()));
 
-                }
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,
                     mLocationRequest, this);
 
@@ -169,6 +167,7 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
                 startExpenseFragment();
                 startMapFragment();
             }
+
         }
     }
 
@@ -201,8 +200,6 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
     public void onConnected(@Nullable Bundle bundle) {
         getDeviceLocation();
 
-
-
     }
 
     @Override
@@ -224,6 +221,11 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
         Bundle b = new Bundle();
         b.putDouble("lat", mCurrentLocation.getLatitude());
         b.putDouble("long", mCurrentLocation.getLongitude());
+
+        //Αν ο χρήστης έχει σύνδεση στο ιντερνετ στέλνουμε το όνομα της διέυθυνσης
+        if(address!=null) {
+            b.putString("address", address.get(0).getAddressLine(0));
+        }
         mapFragment.setArguments(b);
 
         ft = getFragmentManager().beginTransaction();

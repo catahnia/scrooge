@@ -35,4 +35,6 @@
     <string name="addCategoryFirst">Add A Category First</string>
     <string name="wrongDates">Enter Dates Correctly</string>
     <string name="add_new_category">Add New</string>
+    <string name="enter_amount_message">Enter Amount!</string>
+    <string name="your_location">Your Location</string>
 </resources>

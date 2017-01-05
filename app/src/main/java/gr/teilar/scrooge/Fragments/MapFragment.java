@@ -70,11 +70,16 @@ public class MapFragment extends Fragment  {
                 //googleMap.setMyLocationEnabled(true);
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(locationBundle.getDouble("lat"), locationBundle.getDouble("long"));
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+                LatLng expensePosition = new LatLng(locationBundle.getDouble("lat"), locationBundle.getDouble("long"));
+                if(locationBundle.getString("address")!=null) {
+                    googleMap.addMarker(new MarkerOptions().position(expensePosition).title(getString(R.string.your_location)).snippet(locationBundle.getString("address")));
+                }
+                else {
+                    googleMap.addMarker(new MarkerOptions().position(expensePosition).title(getString(R.string.your_location)).snippet("You are here"));
 
+                }
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(expensePosition).zoom(13).build();
                 googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
             }

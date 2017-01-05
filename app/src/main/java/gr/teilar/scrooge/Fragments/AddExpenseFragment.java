@@ -73,7 +73,7 @@ public class AddExpenseFragment extends Fragment {
         Bundle b = this.getArguments();
 
         editDate = (Button) rootView.findViewById(R.id.dateFrag);
-        editDate.setText(new SimpleDateFormat("dd/MM/yy").format(today));
+        editDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(today));
 
         Button addCategoryButton = (Button) rootView.findViewById(R.id.addCategoryButton);
 
@@ -156,8 +156,12 @@ public class AddExpenseFragment extends Fragment {
         addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onAddExpense(selectedCategory,editDate.getText().toString(),
-                        amount.getText().toString(), description.getText().toString(), locationName.getText().toString());
+                if(amount.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), R.string.enter_amount_message, Toast.LENGTH_LONG).show();
+                } else {
+                    listener.onAddExpense(selectedCategory, editDate.getText().toString(),
+                            amount.getText().toString(), description.getText().toString(), locationName.getText().toString());
+                }
             }
         });
 
