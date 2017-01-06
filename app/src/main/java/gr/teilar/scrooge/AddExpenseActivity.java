@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteException;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -149,23 +150,36 @@ public class AddExpenseActivity extends AppCompatActivity implements GoogleApiCl
          * τοποθεσία της συσκευής.
          */
         if (mLocationPermissionGranted) {
-            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 
+            LocationManager lm = (LocationManager) getApplicationContext().getSystemService(getApplicationContext().LOCATION_SERVICE);
+            boolean gps_enabled = false;
 
             try {
-                address = geocoder.getFromLocation(mCurrentLocation.getLatitude(),mCurrentLocation.getLongitude(), 1);
+                gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            } catch(Exception ex) {}
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,
-                    mLocationRequest, this);
+            //Ελέγχουμε αν είναι ανοιχτό το Gps. Αν δεν είναι εμφανίζουμε μηνυμα
+            if(gps_enabled) {
+                mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
 
-            //Μετά τον έλεγχο για την άδεια χρήσης της τρέχουσας τοποθεσίας, και αφού αποκτήσουμε συντεταγμένες
-            // καλούμε τις συναρτήσεις που ξεκινούν τα fragments της δραστηριότητας
-            if(mCurrentLocation!=null) {
-                startExpenseFragment();
-                startMapFragment();
+                //Μετά τον έλεγχο για την άδεια χρήσης της τρέχουσας τοποθεσίας, και αφού αποκτήσουμε συντεταγμένες
+                // καλούμε τις συναρτήσεις που ξεκινούν τα fragments της δραστηριότητας
+                if (mCurrentLocation != null) {
+                    try {
+                        address = geocoder.getFromLocation(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), 1);
+
+                    } catch (IOException  | NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                    LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,
+                            mLocationRequest, this);
+
+                    startExpenseFragment();
+                    startMapFragment();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), R.string.enable_Gps, Toast.LENGTH_SHORT).show();
+                this.finish();
             }
 
         }

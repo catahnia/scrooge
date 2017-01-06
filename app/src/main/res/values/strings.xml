@@ -37,4 +37,5 @@
     <string name="add_new_category">Add New</string>
     <string name="enter_amount_message">Enter Amount!</string>
     <string name="your_location">Your Location</string>
+    <string name="enable_Gps">Enable GPS Please</string>
 </resources>
