@@ -46,6 +46,7 @@ public class EditExpenseActivity extends AppCompatActivity {
         final EditText amountEditText = (EditText) findViewById(R.id.amountEditText);
         final Spinner categorySpinner = (Spinner) findViewById(R.id.categorySpinner);
         Button editExpenseButton = (Button) findViewById(R.id.editExpenseButton);
+        Button deleteExpenseButton = (Button) findViewById(R.id.deleteExpenseButton);
 
         descriptionEditTest.setText(intent.getStringExtra(DESCRIPTON));
         amountEditText.setText(Float.toString(intent.getFloatExtra(AMOUNT,0)));
@@ -83,6 +84,29 @@ public class EditExpenseActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), R.string.editExpenseFail, Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(), R.string.editExpenseSuccess, Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+
+        deleteExpenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                long expenseId = intent.getLongExtra(EXPENSEID, -1);
+                int result;
+
+                result = ExpenseDb.deleteExpense(EditExpenseActivity.this, expenseId);
+
+                if (result == -1){
+                    Toast.makeText(getApplicationContext(), R.string.expense_delete_fail, Toast.LENGTH_LONG).show();
+                } else {
+                    EditExpenseActivity.this.finish();
+                    Intent i = new Intent(getApplicationContext(), SeeExpensesActivity.class);
+                    //Τροπος για να καθαρισουμε το back stack για μην εμφανιστει η λίστα με όλα τα έξοδα πριν την διαγραφή
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+
+                    Toast.makeText(getApplicationContext(), R.string.expense_delete_success, Toast.LENGTH_LONG).show();
                 }
 
             }

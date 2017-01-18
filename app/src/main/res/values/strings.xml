@@ -38,4 +38,7 @@
     <string name="enter_amount_message">Enter Amount!</string>
     <string name="your_location">Your Location</string>
     <string name="enable_Gps">Enable GPS Please</string>
+    <string name="delete">Delete</string>
+    <string name="expense_delete_fail">Expense Delete Fail</string>
+    <string name="expense_delete_success">Expense Successfully Deleted</string>
 </resources>

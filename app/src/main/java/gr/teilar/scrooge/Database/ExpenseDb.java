@@ -161,4 +161,23 @@ public class ExpenseDb extends SQLiteOpenHelper {
         return expenses;
 
     }
+
+    public static int deleteExpense(Context context, long expenseId) {
+        int result=-1;
+
+        try {
+            SQLiteOpenHelper helper = new ExpenseDb(context);
+            SQLiteDatabase sqLiteDatabase = helper.getWritableDatabase();
+
+
+            result = sqLiteDatabase.delete("expenses","id=?",new String[] {Long.toString(expenseId)});
+
+            sqLiteDatabase.close();
+
+        }
+        catch (SQLiteException e) {
+            Log.v("DeleteExpense", e.toString());
+        }
+        return result;
+    }
 }
